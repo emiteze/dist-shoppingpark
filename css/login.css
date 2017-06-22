@@ -192,8 +192,83 @@
 }
 
 .lblsSignUp {
-	color:red; 
-	font-size: 12px; 
-	padding-left: 10px; 
+	color:red;
+	font-size: 12px;
+	padding-left: 10px;
 	display: none;
+}
+
+#prodTable {
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 95%;
+	border: none;
+}
+
+.topMenu {
+    text-decoration:none;
+    width:90px;
+    height:80%;
+    text-align:center;
+    color:white;
+    padding-top: 5px;
+}
+
+.topMenu:hover {
+    background-color: #41419E;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.9);
+}
+
+.modal-content {
+    background-color: rgb(122,134,153);
+    background-color: #5757BB;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 10px;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.5s;
+}
+
+.btnModal {
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 5px;
+  background-color: #2D2D8D;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  width: 150px;
+  height: 35px;
+  margin-top: 35px;
+  cursor: pointer;
+}
+
+.btnModal:hover {
+  opacity: 0.9;
+}
+
+.txtAddModal{
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  padding-left: 10px;
+  border:1px solid #ccc;
+  border-radius: 4px;
 }

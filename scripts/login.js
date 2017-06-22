@@ -71,7 +71,23 @@ function validateUserAndPass() {
 		firebase.auth().signInWithEmailAndPassword(user, pass)
 		.then(function(firebaseUser){
 			clearLoginForm();
-			alert('Você foi logado com sucesso!');
+			firebase.database().ref("/user").orderByChild("mail").equalTo(user).on("value", function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+					funcao = childSnapshot.val().permissionType;
+					if(funcao == 1)
+					{
+						window.location.href = 'html/coordenador/inicio.html';
+					}
+					else if(funcao == 0)
+					{
+						window.location.href = 'html/estagiario/inicio.html';
+					}
+					else if(funcao == 2)
+					{
+						alert("Usuário bloqueado!");
+					}
+				});
+			});
 		}).catch(function(error){
 			var errorCode = error.code;
 			if(errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-email')
