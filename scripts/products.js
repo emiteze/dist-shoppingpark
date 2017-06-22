@@ -22,7 +22,7 @@ function popularTabelas(funcao){
 
     tabela = document.getElementById("prodTable");
 
-    firebase.database().ref("/product").orderByChild("name").on("value", function(snapshot) {
+    firebase.database().ref("/product").orderByChild("type").on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             linha = tabela.insertRow(++i);
             col1 = linha.insertCell(0);
@@ -73,7 +73,7 @@ function fecharAddModal(){
     var txtMinimo = document.getElementById('txtMinimoAddModal');
 
     txtNome.value = "";
-    txtTipo.value = "";
+    txtTipo.options[txtTipo.selectedIndex].value == '0';
     txtMarca.value = "";
     txtValidade.value = "";
     txtMinimo.value = "";
@@ -82,13 +82,13 @@ function fecharAddModal(){
 
 function adicionarProduto(){
     var txtNome = document.getElementById('txtNomeAddModal').value;
-    var txtTipo = document.getElementById('txtTipoAddModal').value;
+    var txtTipo = document.getElementById('txtTipoAddModal');
     var txtMarca = document.getElementById('txtMarcaAddModal').value;
     var txtValidade = document.getElementById('txtValidadeAddModal').value;
     var txtMinimo = document.getElementById('txtMinimoAddModal').value;
 
 
-    if(txtNome == '' || txtTipo == '' || txtMarca == '' || txtMinimo == '')
+    if(txtNome == '' || txtTipo.options[txtTipo.selectedIndex].value == '0' || txtMarca == '' || txtMinimo == '')
     {
         alert("O nome, tipo, marca e quantidade mínima são obrigatórios!");
     }
@@ -98,21 +98,23 @@ function adicionarProduto(){
         {
             firebase.database().ref().child('product').push().set({
                 name: txtNome,
-                type: txtTipo,
+                type: txtTipo.options[txtTipo.selectedIndex].text,
                 manufacturer: txtMarca,
-                expirationAlert: txtValidade,
-                minimumStock: txtMinimo,
-                isPerishable: 'S'
+                expirationAlert: parseInt(txtValidade),
+                minimumStock: parseInt(txtMinimo),
+                isPerishable: 'S',
+                amountInStock: parseInt("0")
             });
         }
         else
         {
             firebase.database().ref().child('product').push().set({
                 name: txtNome,
-                type: txtTipo,
+                type: txtTipo.options[txtTipo.selectedIndex].text,
                 manufacturer: txtMarca,
-                minimumStock: txtMinimo,
-                isPerishable: 'N'
+                minimumStock: parseInt(txtMinimo),
+                isPerishable: 'N',
+                amountInStock: parseInt("0")
             });
         }
 
@@ -136,7 +138,7 @@ function fecharEditModal(){
     var txtMinimo = document.getElementById('txtMinimoEditModal');
 
     txtNome.value = "";
-    txtTipo.value = "";
+    txtTipo.options[txtTipo.selectedIndex].value == '0'
     txtMarca.value = "";
     txtValidade.value = "";
     txtMinimo.value = "";
@@ -158,7 +160,12 @@ function editarProduto(id){
             {
                 txtId.value = childSnapshot.key;
                 txtNome.value = childSnapshot.val().name;
-                txtTipo.value = childSnapshot.val().type;
+                if(childSnapshot.val().type == 'Alimento')
+                    txtTipo.selectedIndex = 1;
+                else if(childSnapshot.val().type == 'Eletrônico')
+                    txtTipo.selectedIndex = 2;
+                else if(childSnapshot.val().type == 'Limpeza')
+                    txtTipo.selectedIndex = 3;
                 txtMarca.value = childSnapshot.val().manufacturer;
                 txtMinimo.value = childSnapshot.val().minimumStock;
                 if(childSnapshot.val().isPerishable == 'S')
@@ -171,16 +178,16 @@ function editarProduto(id){
 function confirmarEdicao(){
     var txtId = document.getElementById('idLabelEditModal').value;
     var txtNome = document.getElementById('txtNomeEditModal').value;
-    var txtTipo = document.getElementById('txtTipoEditModal').value;
+    var txtTipo = document.getElementById('txtTipoEditModal');
     var txtMarca = document.getElementById('txtMarcaEditModal').value;
     var txtValidade = document.getElementById('txtValidadeEditModal').value;
     var txtMinimo = document.getElementById('txtMinimoEditModal').value;
 
-    if(txtNome != '' && txtTipo != '' && txtMarca != '' && txtMinimo != '')
+    if(txtNome != '' && txtTipo.options[txtTipo.selectedIndex].value != '0' && txtMarca != '' && txtMinimo != '')
     {
         var ref = firebase.database().ref("/product/" + txtId);
         ref.child('name').set(txtNome);
-        ref.child('type').set(txtTipo);
+        ref.child('type').set(txtTipo.options[txtTipo.selectedIndex].text);
         ref.child('manufacturer').set(txtMarca);
         ref.child('minimumStock').set(txtMinimo);
 

@@ -56,10 +56,15 @@
         <h1>Adicionar Produto</h1>
         <label style="font-size:20px;" for="nome">Nome do Produto</label></br>
         <input id="txtNomeAddModal" class="txtAddModal" maxlength="50" type="text" name="nome" autofocus> <br/>
-		<label style="font-size:20px;" for="tipo">Tipo de Produto</label></br>
-        <input id="txtTipoAddModal" class="txtAddModal" maxlength="40" type="text" name="tipo"> <br/>
 		<label style="font-size:20px;" for="marca">Marca</label></br>
         <input id="txtMarcaAddModal" class="txtAddModal" maxlength="40" type="text" name="marca"> <br/>
+		<label style="font-size:20px;" for="tipo">Tipo</label></br>
+		<select id="txtTipoAddModal" style="width:200px" class="txtAddModal" name="tipo">
+			<option value="0">Selecione...</option>
+			<option value="1">Alimento</option>
+			<option value="2">Eletrônico</option>
+			<option value="3">Limpeza</option>
+		</select> </br>
 		<label style="font-size:20px;" for="validade">Alerta - Validade</label></br>
         <input id="txtValidadeAddModal" style="width:200px" class="txtAddModal" type="number" name="validade"> <br/>
 		<label style="font-size:20px;" for="minimo">Quantidade Mínima</label></br>
@@ -76,10 +81,15 @@
 	<label id="idLabelEditModal" hidden></label>
 	<label style="font-size:20px;" for="nome">Nome do Produto</label></br>
 	<input id="txtNomeEditModal" class="txtAddModal" maxlength="50" type="text" name="nome" autofocus> <br/>
-	<label style="font-size:20px;" for="tipo">Tipo de Produto</label></br>
-	<input id="txtTipoEditModal" class="txtAddModal" maxlength="40" type="text" name="tipo"> <br/>
 	<label style="font-size:20px;" for="marca">Marca</label></br>
 	<input id="txtMarcaEditModal" class="txtAddModal" maxlength="40" type="text" name="marca"> <br/>
+	<label style="font-size:20px;" for="tipo">Tipo</label></br>
+	<select id="txtTipoEditModal" style="width:200px" class="txtAddModal" name="tipo">
+		<option value="0">Selecione...</option>
+		<option value="1">Alimento</option>
+		<option value="2">Eletrônico</option>
+		<option value="3">Limpeza</option>
+	</select> </br>
 	<label style="font-size:20px;" for="validade">Alerta - Validade</label></br>
 	<input id="txtValidadeEditModal" style="width:200px" class="txtAddModal" type="number" name="validade"> <br/>
 	<label style="font-size:20px;" for="minimo">Quantidade Mínima</label></br>
