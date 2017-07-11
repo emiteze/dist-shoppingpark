@@ -1,14 +1,14 @@
 var Login = function() {
-	
+
     $(window).keydown(function(event){
     if(event.keyCode == 13) {
       event.preventDefault();
       return false;
     }
 	});
-	
+
     var handleForgetPassword = function() {
-        
+
         jQuery('#forget-password').click(function() {
             jQuery('.login-form').hide();
             jQuery('.forget-form').show();
@@ -17,20 +17,6 @@ var Login = function() {
 
         jQuery('#back-btn').click(function() {
 			clearForgotForm();
-        });
-
-    }
-
-    var handleRegister = function() {
-
-        jQuery('#register-btn').click(function() {
-            jQuery('.login-form').hide();
-            jQuery('.register-form').show();
-			clearLoginForm();
-        });
-
-        jQuery('#register-back-btn').click(function() {
-			clearSignUpForm();
         });
     }
 
@@ -49,7 +35,7 @@ var Login = function() {
 function validateUserAndPass() {
 	var user = document.getElementById("username").value;
 	var pass = document.getElementById("password").value;
-	
+
 	if(user == '')
 	{
 		jQuery('#lblUserNameLogin').show();
@@ -107,7 +93,7 @@ function signUpUser() {
 	var pass2 = document.getElementById("retypePasswordSignUp").value;
 	var flag = true;
 	var categoryNumber, categoryName;
-	
+
 	if(name.length < 10)
 	{
 		if(name == '')
@@ -184,7 +170,7 @@ function signUpUser() {
 		jQuery('#lblDifPasswordsSignUp').hide();
 		flag = true;
 	}
-	
+
 	if(category.options[category.selectedIndex].value == '2')
 	{
 		categoryNumber = 1;
@@ -195,7 +181,7 @@ function signUpUser() {
 		categoryNumber = 0;
 		categoryName = 'Estagiário';
 	}
-	
+
 	if(flag == true)
 	{
 		firebase.auth().createUserWithEmailAndPassword(user, pass)
@@ -254,7 +240,7 @@ function clearLoginForm() {
 
 function sendForgotEmail() {
 	var mail = document.getElementById('emailForgot').value;
-	
+
 	if(mail === '')
 	{
 		jQuery('#lblUserNotFoundForgot').hide();

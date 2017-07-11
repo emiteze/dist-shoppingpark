@@ -126,7 +126,7 @@
 .login .content .form-actions .btn-success {
   font-weight: 600;
   padding: 10px 20px !;
-  background-color: #8187C4;
+  background-color: #1C2E5E;
   border: none;
   height: 40px;
   width: 100px;
@@ -167,30 +167,6 @@
   margin-top: 20px;
 }
 
-.login .content .create-account {
-  margin: 0 -40px -40px -40px;
-  padding: 10px 0 17px 0;
-  text-align: center;
-  background-color: #1C2E5E;
-  -webkit-border-radius: 0 0 7px 7px;
-  -moz-border-radius: 0 0 7px 7px;
-  -ms-border-radius: 0 0 7px 7px;
-  -o-border-radius: 0 0 7px 7px;
-  border-radius: 0 0 7px 7px;
-}
-
-.login .content .create-account p a {
-  font-weight: 600;
-  font-size: 18px;
-  color: #c3cedd;
-}
-
-.login .content .create-account a {
-  display: inline-block;
-  text-decoration: none;
-  margin-top: 5px;
-}
-
 .lblsSignUp {
 	color:red;
 	font-size: 12px;
@@ -198,11 +174,43 @@
 	display: none;
 }
 
+#estoqueTable {
+    margin: 0 auto;
+	margin-top: 20px;
+	width: 95%;
+	border: none;
+}
+
 #prodTable {
 	margin: 0 auto;
 	margin-top: 20px;
 	width: 95%;
 	border: none;
+}
+
+#sectorTable {
+    margin: 0 auto;
+	margin-top: 20px;
+	width: 90%;
+	border: none;
+}
+
+#userTable {
+    margin: 0 auto;
+	margin-top: 20px;
+	width: 95%;
+	border: none;
+}
+
+#relatoriosTable {
+    border-collapse: collapse;
+    border-color: white;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+#relatoriosTable tr td {
+    padding-left: 50px;
 }
 
 .topMenu {

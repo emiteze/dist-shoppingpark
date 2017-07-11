@@ -41,11 +41,6 @@
 			<a href="javascript:;" id="forget-password" class="forget-password">Esqueceu a Senha?</a>
 			<button type="button" class="btn btn-success uppercase" onclick="validateUserAndPass()">ENTRAR</button>
 		</div>
-		<div class="create-account">
-			<p>
-				<a href="javascript:;" id="register-btn" class="uppercase">CRIAR CONTA</a>
-			</p>
-		</div>
 	</form>
 
 	<form class="forget-form" action="index.html" method="post">
@@ -60,44 +55,6 @@
 			<button type="button" class="btn btn-success" onclick="sendForgotEmail()">ENVIAR</button>
 		</div>
 	</form>
-
-	<form class="register-form" action="index.html" method="post" id="register-form">
-		<h3>Cadastro</h3>
-		<div class="form-group">
-			<input class="form-control placeholder-no-fix" type="text" placeholder="Nome Completo" id="nameSignUp" name="fullname" maxlength= "150" />
-			<label class="lblsSignUp" id="lblNameSignUp">Este campo deve ser preenchido.</label>
-			<label class="lblsSignUp" id="lblMinNameSignUp">Este campo deve conter mais de 10 letras.</label>
-		</div>
-		<div class="form-group">
-			<input class="form-control placeholder-no-fix" type="tel" placeholder="Telefone (Somente Números)" name="email" maxlength= "12" id="phoneSignUp" />
-			<label class="lblsSignUp" id="lblPhoneSignUp">Este campo deve ser preenchido.</label>
-		</div>
-		<div class="form-group">
-			<select name="category" class="form-control" id="categorySignUp">
-				<option value="1">Categoria</option>
-				<option value="2">Administrador</option>
-				<option value="3">Estagiário</option>
-			</select>
-			<label class="lblsSignUp" id="lblCategorySignUp">Este campo deve ser preenchido.</label>
-		</div>
-		<div class="form-group">
-			<input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="email" maxlength= "40" id="usernameSignUp" />
-			<label class="lblsSignUp" id="lblUserNameSignUp">Este campo deve ser preenchido.</label>
-		</div>
-		<div class="form-group">
-			<input class="form-control placeholder-no-fix" type="password" id="passwordSignUp" placeholder="Senha" name="password" maxlength= "25" />
-			<label class="lblsSignUp" id="lblPassSignUp">Este campo deve ser preenchido.</label>
-		</div>
-		<div class="form-group">
-			<input class="form-control placeholder-no-fix" type="password" id="retypePasswordSignUp" placeholder="Repetir a Senha" name="rpassword" maxlength= "25" />
-			<label class="lblsSignUp" id="lblPass2SignUp">Este campo deve ser preenchido.</label>
-			<label class="lblsSignUp" id="lblDifPasswordsSignUp">As senhas devem ser iguais.</label>
-		</div>
-		<div class="form-actions">
-			<button type="button" id="register-back-btn" class="btn btn-default">Voltar</button>
-			<button type="button" id="register-submit-btn" class="btn btn-success uppercase pull-right" onclick="signUpUser();">CONFIRMAR</button>
-		</div>
-	</form>
 </div>
 
 <div style="margin:0 auto">
@@ -108,7 +65,7 @@
 <script src="scripts/login.js" type="text/javascript"></script>
 
 <script>
-jQuery(document).ready(function() {     
+jQuery(document).ready(function() {
 Login.init();
 });
 </script>

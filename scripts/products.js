@@ -73,7 +73,7 @@ function fecharAddModal(){
     var txtMinimo = document.getElementById('txtMinimoAddModal');
 
     txtNome.value = "";
-    txtTipo.options[txtTipo.selectedIndex].value == '0';
+    txtTipo.options[txtTipo.selectedIndex].value = '0';
     txtMarca.value = "";
     txtValidade.value = "";
     txtMinimo.value = "";
@@ -138,7 +138,7 @@ function fecharEditModal(){
     var txtMinimo = document.getElementById('txtMinimoEditModal');
 
     txtNome.value = "";
-    txtTipo.options[txtTipo.selectedIndex].value == '0'
+    txtTipo.options[txtTipo.selectedIndex].value = '0'
     txtMarca.value = "";
     txtValidade.value = "";
     txtMinimo.value = "";
@@ -162,10 +162,23 @@ function editarProduto(id){
                 txtNome.value = childSnapshot.val().name;
                 if(childSnapshot.val().type == 'Alimento')
                     txtTipo.selectedIndex = 1;
-                else if(childSnapshot.val().type == 'Eletrônico')
+                else if(childSnapshot.val().type == 'Construção')
                     txtTipo.selectedIndex = 2;
-                else if(childSnapshot.val().type == 'Limpeza')
+                else if(childSnapshot.val().type == 'Eletrônico')
                     txtTipo.selectedIndex = 3;
+                else if(childSnapshot.val().type == 'Higiene')
+                    txtTipo.selectedIndex = 4;
+                else if(childSnapshot.val().type == 'Lazer')
+                    txtTipo.selectedIndex = 5;
+                else if(childSnapshot.val().type == 'Limpeza')
+                    txtTipo.selectedIndex = 6;
+                else if(childSnapshot.val().type == 'Móveis')
+                    txtTipo.selectedIndex = 7;
+                else if(childSnapshot.val().type == 'Música')
+                    txtTipo.selectedIndex = 8;
+                else if(childSnapshot.val().type == 'Vestuário')
+                    txtTipo.selectedIndex = 9;
+
                 txtMarca.value = childSnapshot.val().manufacturer;
                 txtMinimo.value = childSnapshot.val().minimumStock;
                 if(childSnapshot.val().isPerishable == 'S')
@@ -189,17 +202,17 @@ function confirmarEdicao(){
         ref.child('name').set(txtNome);
         ref.child('type').set(txtTipo.options[txtTipo.selectedIndex].text);
         ref.child('manufacturer').set(txtMarca);
-        ref.child('minimumStock').set(txtMinimo);
+        ref.child('minimumStock').set(parseInt(txtMinimo));
 
         if(txtValidade == '')
         {
             ref.child('isPerishable').set('N');
-            ref.child('expirationAlert').set('0');
+            ref.child('expirationAlert').set(0);
         }
         else
         {
             ref.child('isPerishable').set('S');
-            ref.child('expirationAlert').set(txtValidade);
+            ref.child('expirationAlert').set(parseInt(txtValidade));
         }
         fecharEditModal();
         location.reload();

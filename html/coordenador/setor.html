@@ -27,22 +27,20 @@
 </div>
 <div style="background-color:#1C1C45; margin-top:0px; width:100%; height:30px">
 	<a href="inicio.html" class="topMenu" style="float:left">Produtos</a>
-	<a href="#" class="topMenu" style="float:left; background-color:#41419E">Estoque</a>
-	<a href="setor.html" class="topMenu" style="float:left">Setores</a>
+	<a href="estoque.html" class="topMenu" style="float:left">Estoque</a>
+    <a href="#" class="topMenu" style="float:left; background-color:#41419E">Setores</a>
 	<a href="usuarios.html" class="topMenu" style="float:left">Usuários</a>
 	<a href="relatorios.html" class="topMenu" style="float:left">Relatórios</a>
 	<a href="#" class="topMenu" style="float:right" onclick="deslogar()">Sair</a>
 </div>
 
 <div>
-	<table border="1" id="estoqueTable">
+	<table border="1" id="sectorTable">
 		<tr>
-			<th>Produto</th>
-			<th>Setor</th>
-			<th>Data de Inserção</th>
-			<th style="">Data de Vencimento</th>
-			<th style="">Quantidade</th>
+			<th>Nome</th>
+			<th>Proprietário</th>
 			<th style="width:15px"><img style="margin-top:2px; width:25px; cursor:pointer" title="Adicionar" src="../../img/add.png" onclick="abrirAddModal()"></th>
+			<th style="width:15px"><img style="margin-top:2px; width:25px;" title="Editar" src="../../img/edit.png"></th>
 			<th style="width:15px"><img style="margin-top:2px; width:25px;" title="Remover" src="../../img/remove.png"></th>
 		</tr>
 	</table>
@@ -53,46 +51,33 @@
 </div>
 
 <div class="modal" id="addModal">
-      <div class="modal-content" style="width:400px">
-        <h1>Adicionar Produtos</h1>
-        <label style="font-size:20px;" for="prod">Nome do Produto</label></br>
-		<select id="txtProdAddEstoqueModal" style="width:200px" class="txtAddModal" name="prod">
-			<option value="0">Selecione...</option>
-		</select> </br>
-		<label style="font-size:20px;" for="sector">Setor</label></br>
-		<select id="txtSectorAddEstoqueModal" style="width:200px" class="txtAddModal" name="sector">
-			<option value="0">Selecione...</option>
-		</select> </br>
-		<label style="font-size:20px;" for="data">Data de Inserção</label></br>
-        <input id="txtDateEAddEstoqueModal" style="width:200px" class="txtAddModal" type="date" name="data"> <br/>
-		<label style="font-size:20px;" for="data">Data de Vencimento</label></br>
-        <input id="txtDateVAddEstoqueModal" style="width:200px" class="txtAddModal" type="date" name="data"> <br/>
-		<label style="font-size:20px;" for="qtde">Quantidade</label></br>
-        <input id="txtQtdeAddEstoqueModal" style="width:200px" class="txtAddModal" type="number" name="qtde"> <br/>
+      <div class="modal-content">
+        <h1>Adicionar Setor</h1>
+        <input id="txtNomeAddSectorModal" class="txtAddModal" maxlength="80" type="text" name="nome" placeholder="Nome do Setor" autofocus> <br/><br/>
+		<input id="txtPropAddSectorModal" class="txtAddModal" maxlength="100" type="text" name="prop" placeholder="Proprietário"> <br/>
         <div style="margin:auto; width: 300px">
-          <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Confirmar" onclick="adicionarProdutoEstoque()"/>
-          <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharAddEstoqueModal()"/>
+          <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Confirmar" onclick="adicionarSetor()"/>
+          <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharAddSectorModal()"/>
         </div>
       </div>
 </div>
 <div class="modal" id="editModal">
-  <div class="modal-content" style="width:300px;">
-	<label id="idRemove" hidden></label>
-	<label id="idRemoveEstoque" hidden></label>
-	<label id="idSetor" hidden></label>
-
-  	<select id="txtQtdeRemoveModal" style="width:200px; margin-left:50px" class="txtAddModal">
-
-	</select>
-	<div style="margin:auto; width:300px">
-	  <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Remover" onclick="confirmarRemocaoEstoque()"/>
-	  <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharRemoveEstoqueModal()"/>
-	</div>
-  </div>
+    <div class="modal-content">
+        <label id="idLabelEditModal" hidden></label>
+        <h1>Editar Setor</h1>
+        <label style="font-size:20px;" for="nome">Nome do Setor</label></br>
+        <input id="txtNomeEditSectorModal" class="txtAddModal" maxlength="80" type="text" name="nome" autofocus> <br/>
+		<label style="font-size:20px;" for="prop">Proprietário</label></br>
+        <input id="txtPropEditSectorModal" class="txtAddModal" maxlength="100" type="text" name="prop"> <br/>
+        <div style="margin:auto; width: 300px">
+          <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Confirmar" onclick="confirmarEdicaoSetor()"/>
+          <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharEditSectorModal()"/>
+        </div>
+    </div>
 </div>
 
 <script src="../../scripts/products.js" type="text/javascript"></script>
-<script src="../../scripts/estoque.js" type="text/javascript"></script>
+<script src="../../scripts/setor.js" type="text/javascript"></script>
 
 <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
 <script>
@@ -110,7 +95,7 @@
 
 <script type="text/javascript">
 	window.onload = verificarAutenticidade('1');
-	window.onload = popularArrayProdutos('1');
+    window.onload = popularTabelaSetores();
 </script>
 
 </body>
