@@ -280,3 +280,16 @@
   border:1px solid #ccc;
   border-radius: 4px;
 }
+
+.alertWelcome {
+  padding-left: 40px;
+  padding-top: 15px;
+}
+
+.hide-div {
+  visibility: hidden;
+}
+
+.show-div {
+  visibility: visible;
+}

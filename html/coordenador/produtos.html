@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+<meta charset="utf-8"/>
+<title>DIST Shopping Park</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="../../css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="login" style="display:flex; flex-direction:column">
+
+<div style="display:flex; background-color:#3E3E96; margin-top:0px; padding:10px;">
+	<div style="display:flex; flex:1">
+		<a href="http://www.ufu.br" target="blank" style="margin: 0 auto"><img style="height:120px;" src="../../img/ufu.png" alt=""/></a>
+	</div>
+	<div style="display:flex; flex:1">
+		<img style="height:140px; margin: 0 auto" src="../../img/logo.png" alt=""/>
+	</div>
+	<div style="display:flex; flex:1">
+		<a href="http://www.proex.ufu.br" target="blank" style="margin: 0 auto"><img style="height:140px" src="../../img/proex.png" alt=""/></a>
+	</div>
+</div>
+<div style="background-color:#1C1C45; margin-top:0px; width:100%; height:30px">
+	<a href="inicio.html" class="topMenu" style="float:left">Inicio</a>
+	<a href="#" class="topMenu" style="float:left; background-color:#41419E">Produtos</a>
+	<a href="estoque.html" class="topMenu" style="float:left">Estoque</a>
+	<a href="setor.html" class="topMenu" style="float:left">Setores</a>
+	<a href="usuarios.html" class="topMenu" style="float:left">Usuários</a>
+	<a href="relatorios.html" class="topMenu" style="float:left">Relatórios</a>
+	<a href="#" class="topMenu" style="float:right" onclick="deslogar()">Sair</a>
+</div>
+
+<div>
+	<table border="1" id="prodTable">
+		<tr>
+			<th>Nome</th>
+			<th>Tipo</th>
+			<th>Marca</th>
+			<th style="">Alerta - Validade</th>
+			<th style="">Quantidade Mínima</th>
+			<th style="width:15px"><img style="margin-top:2px; width:25px; cursor:pointer" title="Adicionar" src="../../img/add.png" onclick="abrirAddModal()"></th>
+			<th style="width:15px"><img style="margin-top:2px; width:25px;" title="Editar" src="../../img/edit.png"></th>
+			<th style="width:15px"><img style="margin-top:2px; width:25px;" title="Remover" src="../../img/remove.png"></th>
+		</tr>
+	</table>
+</div>
+
+<div style="margin:0 auto">
+	<img style="width:1000px; margin-top:20px" src="../../img/patrocinadores.png" />
+</div>
+
+<div class="modal" id="addModal">
+      <div class="modal-content">
+        <h1>Adicionar Produto</h1>
+        <input id="txtNomeAddModal" class="txtAddModal" maxlength="50" type="text" name="nome" placeholder="Nome do Produto" autofocus> <br/><br/>
+        <input id="txtMarcaAddModal" class="txtAddModal" maxlength="40" type="text" name="marca" placeholder="Marca"> <br/><br/>
+		<select id="txtTipoAddModal" style="width:200px" class="txtAddModal" name="tipo">
+			<option value="0">Tipo</option>
+			<option value="1">Alimento</option>
+			<option value="2">Construção</option>
+			<option value="3">Eletrônico</option>
+			<option value="4">Higiene</option>
+			<option value="5">Lazer</option>
+			<option value="6">Limpeza</option>
+			<option value="7">Móveis</option>
+			<option value="8">Música</option>
+			<option value="9">Vestuário</option>
+		</select> </br><br/>
+        <input id="txtValidadeAddModal" style="width:200px" class="txtAddModal" type="number" name="validade" placeholder="Alerta - Validade"> <br/><br/>
+		<input id="txtMinimoAddModal" style="width:200px" class="txtAddModal" type="number" name="minimo" placeholder="Quantidade Mínima"> <br/><br/>
+        <div style="margin:auto; width: 300px">
+          <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Confirmar" onclick="adicionarProduto()"/>
+          <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharAddModal()"/>
+        </div>
+      </div>
+</div>
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <h1>Editar Trabalho</h1>
+	<label id="idLabelEditModal" hidden></label>
+	<label style="font-size:20px;" for="nome">Nome do Produto</label></br>
+	<input id="txtNomeEditModal" class="txtAddModal" maxlength="50" type="text" name="nome" autofocus> <br/>
+	<label style="font-size:20px;" for="marca">Marca</label></br>
+	<input id="txtMarcaEditModal" class="txtAddModal" maxlength="40" type="text" name="marca"> <br/>
+	<label style="font-size:20px;" for="tipo">Tipo</label></br>
+	<select id="txtTipoEditModal" style="width:200px" class="txtAddModal" name="tipo">
+		<option value="0">Selecione...</option>
+		<option value="1">Alimento</option>
+		<option value="2">Construção</option>
+		<option value="3">Eletrônico</option>
+		<option value="4">Higiene</option>
+		<option value="5">Lazer</option>
+		<option value="6">Limpeza</option>
+		<option value="7">Móveis</option>
+		<option value="8">Música</option>
+		<option value="9">Vestuário</option>
+	</select> </br>
+	<label style="font-size:20px;" for="validade">Alerta - Validade</label></br>
+	<input id="txtValidadeEditModal" style="width:200px" class="txtAddModal" type="number" name="validade"> <br/>
+	<label style="font-size:20px;" for="minimo">Quantidade Mínima</label></br>
+	<input id="txtMinimoEditModal" style="width:200px" class="txtAddModal" type="number" name="minimo"> <br/>
+	<div style="margin:auto; width: 300px">
+	  <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Confirmar" onclick="confirmarEdicao()"/>
+	  <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharEditModal()"/>
+	</div>
+  </div>
+</div>
+
+<script src="../../scripts/products.js" type="text/javascript"></script>
+
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDECqVUIcfOBukbfZjg4QVYIokaL6pv1ro",
+    authDomain: "estoqueproex-1e889.firebaseapp.com",
+    databaseURL: "https://estoqueproex-1e889.firebaseio.com",
+    projectId: "estoqueproex-1e889",
+    storageBucket: "estoqueproex-1e889.appspot.com",
+    messagingSenderId: "935379336371"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script type="text/javascript">
+	window.onload = verificarAutenticidade('1');
+    window.onload = popularTabelas('1');
+</script>
+
+</body>
+
+</html>
