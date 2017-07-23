@@ -29,9 +29,6 @@
   <a href="#" class="topMenu" style="float:left; background-color:#41419E">Inicio</a>
 	<a href="produtos.html" class="topMenu" style="float:left">Produtos</a>
 	<a href="estoque.html" class="topMenu" style="float:left">Estoque</a>
-	<a href="setor.html" class="topMenu" style="float:left">Setores</a>
-	<a href="usuarios.html" class="topMenu" style="float:left">Usuários</a>
-	<a href="relatorios.html" class="topMenu" style="float:left">Relatórios</a>
 	<a href="#" class="topMenu" style="float:right" onclick="deslogar()">Sair</a>
 </div>
 
@@ -83,6 +80,7 @@
 </script>
 
 <script type="text/javascript">
+	window.onload = verificarAutenticidade('0');
   window.onload = verificaAlertasEPreencheHTML();
 </script>
 

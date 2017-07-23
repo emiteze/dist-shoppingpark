@@ -1,3 +1,20 @@
+function verificarAutenticidade(funcao) {
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        firebase.database().ref("/user").orderByChild("mail").equalTo(user.email).on("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                if(childSnapshot.val().permissionType != funcao)
+                {
+                    deslogar();
+                }
+            });
+        });
+    } else {
+        deslogar();
+    }
+    });
+}
+
 function deslogar() {
     firebase.auth().signOut().then(function() {
         window.location.href = '../../login.html';

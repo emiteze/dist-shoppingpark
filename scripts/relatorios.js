@@ -455,3 +455,66 @@ function gerarRelatorioEstoqueFiltrado(filtro)
         }
     }
 }
+
+function ehValidoData(){
+	var dataInicio = $("#data_inicio").datepicker().val().split("-")[0] + $("#data_inicio").datepicker().val().split("-")[1] + $("#data_inicio").datepicker().val().split("-")[2];
+	var dataFim = $("#data_fim").datepicker().val().split("-")[0] + $("#data_fim").datepicker().val().split("-")[1] + $("#data_fim").datepicker().val().split("-")[2];
+	if(dataFim >= dataInicio){
+		return true;
+	}
+}
+
+function gerarRelatorioProdutosData(dataInicio, dataFim){
+	var pdf = new jsPDF(), margin=0.5,verticalOffset=margin;
+    pdf.setFontStyle('bold');
+    pdf.text(70, 20, 'Relatório de Produtos');
+    pdf.setFontSize(10);
+    pdf.setFontStyle('normal');
+    var i = 10, j = 1, page = 1;
+	pdf.text(10, 40, 'Data início: ' + $("#data_inicio").datepicker().val().split("-")[2] + "/" + $("#data_inicio").datepicker().val().split("-")[1] + "/" + $("#data_inicio").datepicker().val().split("-")[0]);
+	pdf.text(10, 50, 'Data fim: ' + $("#data_fim").datepicker().val().split("-")[2] + "/" + $("#data_fim").datepicker().val().split("-")[1] + "/" + $("#data_fim").datepicker().val().split("-")[0]);
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+	var hh = today.getHours();
+	var min = today.getMinutes();
+	if(min < 10)
+	  min = '0' + mm.toString();
+	if(dd < 10)
+	  dd = '0' + dd.toString();
+	if(mm < 10)
+	  mm = '0' + mm.toString();
+	var data = 'Gerado em: ' + dd.toString() + '/' + mm.toString() + '/' + yyyy.toString() + ' às ' + hh.toString() + ':' + min.toString();
+	pdf.text(150, 60, data.toString());
+	
+	if(ehValidoData()){
+		var dataInicio = $("#data_inicio").datepicker().val().split("-")[0] + $("#data_inicio").datepicker().val().split("-")[1] + $("#data_inicio").datepicker().val().split("-")[2];
+		var dataFim = $("#data_fim").datepicker().val().split("-")[0] + $("#data_fim").datepicker().val().split("-")[1] + $("#data_fim").datepicker().val().split("-")[2];
+		var dataAux = "";
+		firebase.database().ref("/productDateHistoric").orderByChild("type").on("value", function(snapshot) {
+			snapshot.forEach(function(childSnapshot) {
+				if(parseInt(childSnapshot.val().date) >= parseInt(dataInicio) && parseInt(childSnapshot.val().date) <= parseInt(dataFim)){
+					console.log(childSnapshot.val().date);
+					dataAux = childSnapshot.val().textReport;
+					if(dataAux != '')
+						i += 60;
+					pdf.text(10, i, dataAux.toString());
+				}
+				});
+				pdf.save('Relatorio_Produtos.pdf');
+				
+        });
+		console.log(dataAux);
+		//pdf.text(10, i, dataAux.toString());
+		//pdf.save('Relatorio_Produtos_' + dataInicio + '-' + dataFim + '.pdf');
+		
+        //pdf.text(150, i, data);
+        //pdf.save('Relatorio_Produtos_' + dataInicio + '-' + dataFim + '.pdf');
+		
+	}
+	else{
+		alert("A data de final deve ser igual ou menor que a de inicio");
+	}
+}
+
