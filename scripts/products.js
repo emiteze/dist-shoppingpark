@@ -88,14 +88,10 @@ function adicionarProduto(){
     var txtMinimo = document.getElementById('txtMinimoAddModal').value;
 
 
-    if(txtNome == '' || txtTipo.options[txtTipo.selectedIndex].value == '0' || txtMarca == '' || txtMinimo == '')
-    {
+    if(txtNome == '' || txtTipo.options[txtTipo.selectedIndex].value == '0' || txtMarca == '' || txtMinimo == '') {
         alert("O nome, tipo, marca e quantidade mínima são obrigatórios!");
-    }
-    else
-    {
-        if(txtValidade != '')
-        {
+    } else {
+        if(txtValidade != '') {
             firebase.database().ref().child('product').push().set({
                 name: txtNome,
                 type: txtTipo.options[txtTipo.selectedIndex].text,
@@ -105,9 +101,7 @@ function adicionarProduto(){
                 isPerishable: 'S',
                 amountInStock: parseInt("0")
             });
-        }
-        else
-        {
+        } else {
             firebase.database().ref().child('product').push().set({
                 name: txtNome,
                 type: txtTipo.options[txtTipo.selectedIndex].text,
@@ -117,7 +111,7 @@ function adicionarProduto(){
                 amountInStock: parseInt("0")
             });
         }
-
+        alert("Produto cadastrado com sucesso!");
         fecharAddModal();
         location.reload();
     }
@@ -214,6 +208,7 @@ function confirmarEdicao(){
             ref.child('isPerishable').set('S');
             ref.child('expirationAlert').set(parseInt(txtValidade));
         }
+        alert("Edição concluida com sucesso");
         fecharEditModal();
         location.reload();
     }
@@ -224,14 +219,24 @@ function confirmarEdicao(){
 }
 
 function removerProduto(id){
-    if (confirm("Você tem certeza que deseja deletar esse produto?") == true)
-    {
-        firebase.database().ref("/product/" + id).remove()
-        .then(function(){
-            alert("Remoção efetuada com sucesso!");
-            location.reload();
-        }).catch(function(error) {
-            alert("A remoção falhou: " + error.message)
+  var productQtd;
+  if (confirm("Você tem certeza que deseja deletar esse produto?") == true){
+    firebase.database().ref("/product").on("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            if(childSnapshot.key == id){
+              productQtd = childSnapshot.amountInStock;
+            }
         });
-    }
+        if(productQtd <= 0){
+          firebase.database().ref("/product/" + id).remove().then(function(){
+              alert("Remoção efetuada com sucesso!");
+              location.reload();
+          }).catch(function(error) {
+              alert("A remoção falhou: " + error.message)
+          });
+        } else{
+          alert("O produto não pode ser deletado pois ainda existem produtos no estoque");
+        }
+    });
+  }
 }

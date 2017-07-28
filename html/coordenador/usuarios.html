@@ -43,6 +43,7 @@
 			<th>Função</th>
 			<th>Telefone</th>
 			<th style="width:15px"><img style="margin-top:2px; width:25px; cursor:pointer" title="Cadastrar" src="../../img/add.png" onclick="abrirAddUserModal()"></th>
+			<th style="width:15px"><img style="margin-top:2px; width:25px;" title="Editar" src="../../img/edit.png"></th>
 			<th style="width:15px"><img style="margin-top:2px; width:25px" title="Desbloquear" src="../../img/unblock.png"></th>
 			<th style="width:15px"><img style="margin-top:2px; width:25px;" title="Bloquear" src="../../img/block.png"></th>
 		</tr>
@@ -52,21 +53,50 @@
 <div class="modal" id="addUserModal">
     <div class="modal-content" style="width:500px">
       <h1>Cadastrar Usuário</h1>
+		<label id="idLabelEditModal" hidden></label>
+		<label style="font-size:20px;" for="nome">Nome do Usuário</label></br>
 	  <input id="txtNameAddUserModal" style="width:450px" class="txtAddModal" maxlength="150" type="text" name="nome" placeholder="Nome Completo" autofocus> <br/><br/>
+		<label style="font-size:20px;" for="email">E-mail</label></br>
 	  <input id="txtEmailAddUserModal" style="width:450px" class="txtAddModal" maxlength="40" type="text" name="email" placeholder="Email"> <br/><br/>
+		<label style="font-size:20px;" for="telefone">Telefone</label></br>
 	  <input id="txtTelAddUserModal" style="width:200px" class="txtAddModal" maxlength="12" type="tel" name="tel" placeholder="Telefone (Somente Números)" autofocus> <br/><br/>
+		<label style="font-size:20px;" for="categoria">Categoria</label></br>
 	  <select id="txtCatAddUserModal" class="txtAddModal" style="width:200px">
-          <option value="0">Categoria</option>
-          <option value="1">Administrador</option>
-          <option value="2">Estagiário</option>
-      </select><br/><br/>
+      <option value="0"></option>
+      <option value="1">Administrador</option>
+      <option value="2">Estagiário</option>
+    </select><br/><br/>
+		<label style="font-size:20px;" for="senha">Senha</label></br>
 	  <input id="txtPassAddUserModal" style="width:200px" class="txtAddModal" maxlength="25" type="password" name="pass" placeholder="Senha"> <br/><br/>
-      <input id="txtPass2AddUserModal" style="width:200px" class="txtAddModal" maxlength="25" type="password" name="pass" placeholder="Digite a senha novamente"> <br/><br/>
-      <div style="margin:auto; width: 300px">
-        <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Cadastrar" onclick="adicionarUsuario()"/>
-        <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharAddUserModal()"/>
-      </div>
+		<label style="font-size:20px;" for="nome">Confirme sua senha</label></br>
+    <input id="txtPass2AddUserModal" style="width:200px" class="txtAddModal" maxlength="25" type="password" name="pass" placeholder="Digite a senha novamente"> <br/><br/>
+    <div style="margin:auto; width: 300px">
+      <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Salvar" onclick="adicionarUsuario()"/>
+      <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharAddUserModal()"/>
     </div>
+    </div>
+</div>
+
+<div class="modal" id="editModal">
+	<div class="modal-content" style="width:500px">
+	<h1>Editar Usuário</h1>
+	<label style="font-size:20px;" for="nome">Nome do Usuário</label></br>
+	<input id="txtNameEditUserModal" style="width:450px" class="txtAddModal" maxlength="150" type="text" name="nome" placeholder="Nome Completo" autofocus> <br/><br/>
+	<label style="font-size:20px;" for="email">E-mail</label></br>
+	<input id="txtEmailEditUserModal" style="width:450px" class="txtAddModal" maxlength="40" type="text" name="email" placeholder="Email" disabled> <br/><br/>
+	<label style="font-size:20px;" for="telefone">Telefone</label></br>
+	<input id="txtTelEditUserModal" style="width:200px" class="txtAddModal" maxlength="12" type="tel" name="tel" placeholder="Telefone (Somente Números)" autofocus> <br/><br/>
+	<label style="font-size:20px;" for="categoria">Categoria</label></br>
+	<select id="txtCatEditUserModal" class="txtAddModal" style="width:200px">
+		<option value="0"></option>
+		<option value="1">Administrador</option>
+		<option value="2">Estagiário</option>
+	</select><br/><br/>
+	<div style="margin:auto; width: 300px">
+	  <input style="width: 140px; display:inline-block; cursor:pointer;" class="btnModal" type="button" value="Salvar" onclick="confirmarEdicao()"/>
+	  <input style="width: 140px; display:inline-block; cursor:pointer; margin-left: 5px" class="btnModal" type="button" value="Fechar" onclick="fecharEditModal()"/>
+	</div>
+  </div>
 </div>
 
 <div style="margin:0 auto">
@@ -74,7 +104,6 @@
 </div>
 
 <script src="../../scripts/users.js" type="text/javascript"></script>
-<script src="../../scripts/products.js" type="text/javascript"></script>
 
 <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
 <script>

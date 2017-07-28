@@ -1,34 +1,25 @@
 var Login = function() {
 
-    $(window).keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-	});
+  var handleForgetPassword = function() {
 
-    var handleForgetPassword = function() {
+      jQuery('#forget-password').click(function() {
+          jQuery('.login-form').hide();
+          jQuery('.forget-form').show();
+		clearLoginForm();
+      });
 
-        jQuery('#forget-password').click(function() {
-            jQuery('.login-form').hide();
-            jQuery('.forget-form').show();
-			clearLoginForm();
-        });
+      jQuery('#back-btn').click(function() {
+		clearForgotForm();
+      });
+  }
 
-        jQuery('#back-btn').click(function() {
-			clearForgotForm();
-        });
-    }
+  return {
+      //main function to initiate the module
+      init: function() {
+          handleForgetPassword();
+      }
 
-
-    return {
-        //main function to initiate the module
-        init: function() {
-            handleForgetPassword();
-            handleRegister();
-        }
-
-    };
+  };
 
 }();
 
@@ -229,7 +220,7 @@ function clearForgotForm() {
 	jQuery('#lblUserNotFoundForgot').hide();
 	document.getElementById('emailForgot').value = '';
 	jQuery('.login-form').show();
-    jQuery('.forget-form').hide();
+  jQuery('.forget-form').hide();
 }
 
 function clearLoginForm() {

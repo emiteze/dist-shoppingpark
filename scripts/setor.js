@@ -12,11 +12,11 @@ function popularTabelaSetores(){
             col2 = linha.insertCell(1);
             linha.insertCell(2);
             col3 = linha.insertCell(3);
-            col4 = linha.insertCell(4);
+            //col4 = linha.insertCell(4);
             col1.innerHTML = childSnapshot.val().name;
             col2.innerHTML = childSnapshot.val().owner;
-            col3.innerHTML = '<img src="../../img/edit.png" style="width:100%; padding-top:3px; cursor:pointer; display:block; margin:auto" title="Editar" onclick="editarSetor(\'' + childSnapshot.key + '\')" />';;
-            col4.innerHTML = '<img src="../../img/remove.png" style="width:100%; padding-top:3px; cursor:pointer; display:block; margin:auto" title="Remover" onclick="removerSetor(\'' + childSnapshot.key + '\')" />';
+            col3.innerHTML = '<img src="../../img/edit.png" style="width:100%; padding-top:3px; cursor:pointer; display:block; margin:auto" title="Editar" onclick="editarSetor(\'' + childSnapshot.key + '\')" />';
+            //col4.innerHTML = '<img src="../../img/remove.png" style="width:100%; padding-top:3px; cursor:pointer; display:block; margin:auto" title="Remover" onclick="removerSetor(\'' + childSnapshot.key + '\')" />';
         });
     });
 }
@@ -25,16 +25,14 @@ function adicionarSetor(){
     var txtNome = document.getElementById('txtNomeAddSectorModal').value;
     var txtProp = document.getElementById('txtPropAddSectorModal').value;
 
-    if(txtNome == '' || txtProp == '')
-    {
+    if(txtNome == '' || txtProp == '') {
         alert("O nome e o proprietário são obrigatórios!");
-    }
-    else
-    {
+    } else {
         firebase.database().ref().child('sector').push().set({
             name: txtNome,
             owner: txtProp
         });
+        alert("O setor foi cadastrado com sucesso!");
         fecharAddSectorModal();
         location.reload();
     }
@@ -62,8 +60,7 @@ function editarSetor(id){
 
     firebase.database().ref("/sector").on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            if(childSnapshot.key == id)
-            {
+            if(childSnapshot.key == id) {
                 txtId.value = childSnapshot.key;
                 txtNome.value = childSnapshot.val().name;
                 txtProp.value = childSnapshot.val().owner;
@@ -77,17 +74,14 @@ function confirmarEdicaoSetor(){
     var txtNome = document.getElementById('txtNomeEditSectorModal').value;
     var txtProp = document.getElementById('txtPropEditSectorModal').value;
 
-    if(txtNome != '' && txtProp != '')
-    {
+    if(txtNome != '' && txtProp != '') {
         var ref = firebase.database().ref("/sector/" + txtId);
         ref.child('name').set(txtNome);
         ref.child('owner').set(txtProp);
-
+        alert("Edição concluida com sucesso");
         fecharEditSectorModal();
         location.reload();
-    }
-    else
-    {
+    } else {
         alert("Todos os campos são obrigatórios!");
     }
 }
@@ -103,7 +97,7 @@ function fecharEditSectorModal(){
     modal.style.display = "none";
 }
 
-function removerSetor(id){
+/*function removerSetor(id){
     if (confirm("Você tem certeza que deseja deletar esse setor?") == true)
     {
         firebase.database().ref("/sector/" + id).remove()
@@ -114,4 +108,4 @@ function removerSetor(id){
             alert("A remoção falhou: " + error.message)
         });
     }
-}
+}*/

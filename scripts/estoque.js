@@ -112,19 +112,36 @@ function adicionarProdutoEstoque(){
     var txtDataE = document.getElementById('txtDateEAddEstoqueModal').value;
     var txtDateV = document.getElementById('txtDateVAddEstoqueModal').value;
     var txtQtde = document.getElementById('txtQtdeAddEstoqueModal').value;
+    var DataI;
+    var DataV;
+    var dataIobj;
+    var dataVobj;
+    var diffDays;
 
-    var DataI = txtDataE.substring(0,4) + txtDataE.substring(5,7) + txtDataE.substring(8,10);
-    DataI = parseInt(DataI);
-
-    if(txtProd.options[txtProd.selectedIndex].value == '0' || txtSector.options[txtSector.selectedIndex].value == '0' || txtDataE == '' || txtQtde == '')
-    {
-        alert("O produto, setor, data de inserção e quantidade são obrigatórios!");
+    if(txtDateE != ''){
+      DataI = txtDataE.substring(0,4) + txtDataE.substring(5,7) + txtDataE.substring(8,10);
+      dataIobj = new Date(DataI);
+      DataI = parseInt(DataI);
     }
-    else
-    {
+
+    if(txtDateV != ''){
+      DataV = txtDataV.substring(0,4) + txtDataV.substring(5,7) + txtDataV.substring(8,10);
+      dataVobj = new Date(DataV);
+    }
+
+    if(dataIobj != null && dataVobj != null){
+      var timeDiff = dataIobj.getTime() - dataVobj.getTime();
+      diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
+
+    if(txtProd.options[txtProd.selectedIndex].value == '0' || txtSector.options[txtSector.selectedIndex].value == '0' || txtDataE == '' || txtQtde == ''){
+        alert("O produto, setor, data de inserção e quantidade são obrigatórios!");
+    } else if(diffDays != null && diffDays < 0){
+        alert("A data de validade não pode ser anterior à data de inserção!");
+    } else {
         if(txtDateV != '')
         {
-            var DataV = txtDateV.substring(0,4) + txtDateV.substring(5,7) + txtDateV.substring(8,10);
+            DataV = txtDateV.substring(0,4) + txtDateV.substring(5,7) + txtDateV.substring(8,10);
             DataV = parseInt(DataV);
             firebase.database().ref().child('productXsector').push().set({
                 productId: txtProd.options[txtProd.selectedIndex].value,
@@ -171,7 +188,7 @@ function adicionarProdutoEstoque(){
         var ref = firebase.database().ref("/product/" + txtProd.options[txtProd.selectedIndex].value);
         var total = arrayQuantidadeProdutos[txtProd.options[txtProd.selectedIndex].value] + parseInt(txtQtde);
         ref.child('amountInStock').set(total);
-
+        alert("Produto inserido com sucesso no estoque!");
         fecharAddEstoqueModal();
         location.reload();
     }
