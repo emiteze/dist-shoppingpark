@@ -182,7 +182,6 @@ function signUpUser() {
 				mail: user,
 				permissionType: categoryNumber,
 				phone: phone,
-				role: categoryName,
 			});
 			alert('O usuário foi cadastrado com sucesso!');
 			clearSignUpForm();

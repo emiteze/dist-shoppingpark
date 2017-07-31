@@ -17,7 +17,7 @@ function verificarAutenticidade(funcao) {
 
 function deslogar() {
     firebase.auth().signOut().then(function() {
-        window.location.href = '../../login.html';
+        window.location.href = '../../index.html';
     }, function(error) {
         alert("Erro!" + error);
     });
@@ -41,19 +41,13 @@ function verificaAlertasEPreencheHTML(){
 
 	verificaQuantidadeMinima(function(callbackResponse){
     var minimumQuantityArray = callbackResponse;
-    console.log('verificaQuantidadeMinima function 1');
     verificaValidadeProxima(function(callbackResponse){
       var nearValityArray = callbackResponse;
-      console.log('verificaValidadeProxima function 2');
       listaNomeUsuario(function(callBackResponse){
         var userName = "";
         if(callBackResponse){
           userName = JSON.parse(callBackResponse).name;
         }
-        console.log('listaNomeUsuario function 3');
-        console.log('userName ' + userName);
-        console.log('minimumQuantityArray ' + minimumQuantityArray);
-        console.log('nearValityArray ' + nearValityArray);
 
         if(minimumQuantityArray.length > 0 && nearValityArray.length > 0){
 

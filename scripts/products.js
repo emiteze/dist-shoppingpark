@@ -52,7 +52,7 @@ function popularTabelas(funcao){
 
 function deslogar() {
     firebase.auth().signOut().then(function() {
-        window.location.href = '../../login.html';
+        window.location.href = '../../index.html';
     }, function(error) {
         alert("Erro!" + error);
     });
@@ -239,4 +239,38 @@ function removerProduto(id){
         }
     });
   }
+}
+
+function verificaExisteBaseRelatorio(){
+	var dateAtual = new Date();
+	var dia = dateAtual.getDate();
+	var mes = (dateAtual.getMonth() + 1 < 10) ? '0' + (dateAtual.getMonth() +1) : dateAtual.getMonth() + 1;
+	var ano = dateAtual.getFullYear();
+	var dataFull = "" + ano + "" + mes + "" + dia;
+	var listProdutosToSave = "";
+	var flag = true;
+	firebase.database().ref("/productDateHistoric").orderByChild("type").on("value", function(snapshot) {
+		snapshot.forEach(function(childSnapshot) {
+			//console.log("comparando: " + parseInt(childSnapshot.val().date) + " com " + parseInt(dataFull));
+			if(childSnapshot.val().date.toString().localeCompare(dataFull) == 0){
+				flag = false;
+			}
+		});
+		if(flag){
+			console.log("entrando flag == true");
+			listProdutosToSave += "" + dia + "/" + mes + "/" + ano;
+			listProdutosToSave += "\n\n";
+			firebase.database().ref("/product").orderByChild("type").on("value",function(snapshot){
+				snapshot.forEach(function(childSnapshot1){
+					//console.log(childSnapshot1.val().name);
+					listProdutosToSave += childSnapshot1.val().name + " - " + childSnapshot1.val().amountInStock + "\n";
+				});
+				//console.log("val listProdutosToSave 2 = " + listProdutosToSave);
+				firebase.database().ref().child('productDateHistoric').push().set({
+					date: parseInt(dataFull),
+					textReport: listProdutosToSave
+				});
+			});
+		}
+	});
 }

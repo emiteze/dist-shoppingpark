@@ -17,7 +17,7 @@ function verificarAutenticidade(funcao) {
 
 function deslogar() {
     firebase.auth().signOut().then(function() {
-        window.location.href = '../../login.html';
+        window.location.href = '../../index.html';
     }, function(error) {
         alert("Erro!" + error);
     });
@@ -81,10 +81,7 @@ function desbloquearUsuario(id)
                 if(childSnapshot.key == id)
                 {
                     var ref = firebase.database().ref("/user/" + id);
-                    if(childSnapshot.val().role == 'Administrador')
-                        ref.child('permissionType').set(1);
-                    else if(childSnapshot.val().role == 'Estagiário')
-                        ref.child('permissionType').set(0);
+                    ref.child('permissionType').set(0);
                     alert("Usuário desbloqueado com sucesso!");
                     location.reload();
                 }
@@ -143,7 +140,6 @@ function adicionarUsuario(){
           mail: txtEmail,
           name: txtNome,
           permissionType: parseInt(permission),
-          role: categoria.options[categoria.selectedIndex].text,
           phone: txtTel
       });
       fecharAddUserModal();
